@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8901911721583480443}
   - component: {fileID: -4895153363454366526}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: WizardShell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -109,4 +109,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 100
-  _damage: 0
+  _damage: 1

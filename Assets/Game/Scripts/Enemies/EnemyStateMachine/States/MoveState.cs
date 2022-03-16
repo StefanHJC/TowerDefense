@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class MoveState : State
 {
+    private Enemy _enemy;
+    private Animator _animator;
+
     private void Start()
     {
-        Animator.SetBool(EnemyAnimatorController.States.Run, true);
+        _animator = GetComponent<Animator>();
+        _enemy = GetComponent<Enemy>();
+        _animator.SetTrigger(EnemyAnimatorController.States.Run);
     }
 
     private void Update()
     {
-        transform.Translate(Vector3.forward * Enemy.Speed * Time.deltaTime);
+        transform.Translate(Vector3.forward * _enemy.Speed * Time.deltaTime);
     }
 }

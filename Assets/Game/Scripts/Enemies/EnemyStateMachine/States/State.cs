@@ -8,8 +8,6 @@ public class State : MonoBehaviour
 {
     [SerializeField] private List<Transition> _transitions;
 
-    protected Animator Animator;
-    protected Enemy Enemy;
     protected Gate Target { get; set; }
 
     public void Enter(Gate gate)
@@ -19,7 +17,7 @@ public class State : MonoBehaviour
 
         foreach (var transition in _transitions)
         {
-            transition.enabled = false;
+            transition.enabled = true;
             transition.Init(Target);
         }
     }
@@ -46,11 +44,5 @@ public class State : MonoBehaviour
             }
         }
         return null;
-    }
-
-    private void Start()
-    {
-        Animator = GetComponent<Animator>();
-        Enemy = GetComponentInParent<Enemy>();
     }
 }

@@ -5,20 +5,28 @@ using UnityEngine;
 public class AttackState : State
 {
     private float _lastAttackTime;
+    private Enemy _enemy;
+    private Animator _animator;
+
+    private void Start()
+    {
+        _animator = GetComponent<Animator>();
+        _enemy = GetComponent<Enemy>();
+    }
 
     private void Update()
     {
         if (_lastAttackTime <= 0)
         {
             Attack(Target);
-            _lastAttackTime = Enemy.AttackDelay;
+            _lastAttackTime = _enemy.AttackDelay;
         }
-        _lastAttackTime += Time.deltaTime;
+        _lastAttackTime -= Time.deltaTime;
     }
 
     private void Attack(Gate target)
     {
-        Animator.Play(EnemyAnimatorController.States.Attack);
-        target.TakeDamage(Enemy.Damage);
+        _animator.SetTrigger(EnemyAnimatorController.States.Attack);
+        target.TakeDamage(_enemy.Damage);
     }
 }

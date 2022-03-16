@@ -15,6 +15,6 @@ public static class EnemyAnimatorController
         public const string Run = nameof(Run);
         public const string Walk = nameof(Walk);
         public const string Attack = nameof(Attack);
-        public const string Die = nameof(Die);
+        public const string Dead = nameof(Dead);
     }
 }

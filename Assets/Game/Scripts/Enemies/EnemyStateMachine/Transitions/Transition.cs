@@ -18,6 +18,6 @@ public class Transition : MonoBehaviour
 
     private void OnEnable()
     {
-        NeedTransit = true;
+        NeedTransit = false;
     }
 }

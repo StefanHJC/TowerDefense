@@ -37,7 +37,7 @@ public class EnemyStateMachine : MonoBehaviour
             _currentState.Enter(_target);
     }
 
-    private void Transit (State nextState)
+    private void Transit(State nextState)
     {
         if (_currentState != null)
             _currentState.Exit();
