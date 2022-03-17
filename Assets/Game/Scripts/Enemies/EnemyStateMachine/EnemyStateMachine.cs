@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Enemy))]
@@ -7,14 +5,14 @@ public class EnemyStateMachine : MonoBehaviour
 {
     [SerializeField] private State _firstState;
 
-    private Gate _target;
+    private CityEnter _city;
     private State _currentState;
 
     public State Current => _currentState;
 
     private void Start()
     {
-        _target = GetComponent<Enemy>().Target;
+        _city = GetComponent<Enemy>().Destination;
         Reset(_firstState);
     }
 
@@ -34,7 +32,7 @@ public class EnemyStateMachine : MonoBehaviour
         _currentState = startState;
 
         if (_currentState != null)
-            _currentState.Enter(_target);
+            _currentState.Enter(_city);
     }
 
     private void Transit(State nextState)
@@ -45,6 +43,6 @@ public class EnemyStateMachine : MonoBehaviour
         _currentState = nextState;
 
         if (_currentState != null)
-            _currentState.Enter(_target);
+            _currentState.Enter(_city);
     }
 }

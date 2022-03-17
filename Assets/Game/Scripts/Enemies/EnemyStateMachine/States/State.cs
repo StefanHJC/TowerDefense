@@ -8,17 +8,19 @@ public class State : MonoBehaviour
 {
     [SerializeField] private List<Transition> _transitions;
 
-    protected Gate Target { get; set; }
+    protected CityEnter City { get; private set; }
+    protected Enemy Enemy { get; private set; }
 
-    public void Enter(Gate gate)
+    public virtual void Enter(CityEnter city)
     {
-        Target = gate;
+        City = city;
         enabled = true;
+        Enemy = GetComponent<Enemy>();
 
         foreach (var transition in _transitions)
         {
             transition.enabled = true;
-            transition.Init(Target);
+            transition.Init(City);
         }
     }
 

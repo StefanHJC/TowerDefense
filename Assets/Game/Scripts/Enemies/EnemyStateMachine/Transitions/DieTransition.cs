@@ -4,15 +4,9 @@ using UnityEngine;
 
 public class DieTransition : Transition
 {
-    private Enemy _enemy;
-    private void Start()
+    private void Update()
     {
-        _enemy = GetComponent<Enemy>();
-        _enemy.Died += OnEnemyDied;
-    }
-
-    private void OnEnemyDied()
-    {
-        NeedTransit = true;
+        if (Enemy.Health <= 0)
+            NeedTransit = true;
     }
 }

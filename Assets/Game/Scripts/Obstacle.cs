@@ -1,18 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Obstacle : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] protected int Health;
 
-    // Update is called once per frame
-    void Update()
+    protected int CurrentHealth;
+
+    public event UnityAction Destroyed;
+
+    public virtual void TakeDamage(int damage)
     {
-        
+        CurrentHealth -= damage;
+
+        if (CurrentHealth <= 0)
+        {
+            gameObject.SetActive(false);
+            Destroyed?.Invoke();
+        }
+    }
+    
+    private void Start()
+    {
+        CurrentHealth = Health;
     }
 }

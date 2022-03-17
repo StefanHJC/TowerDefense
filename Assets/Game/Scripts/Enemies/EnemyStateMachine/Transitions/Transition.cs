@@ -1,23 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Transition : MonoBehaviour
 {
     [SerializeField] private State _targetState;
 
-    protected Gate Target { get; private set; }
+    protected CityEnter City { get; private set; }
+    protected Enemy Enemy { get; private set; }
 
     public State TargetState => _targetState;
     public bool NeedTransit { get; protected set; }
 
-    public void Init(Gate target)
+    public void Init(CityEnter city)
     {
-        Target = target;
+        City = city;
     }
 
     private void OnEnable()
     {
         NeedTransit = false;
+        Enemy = GetComponent<Enemy>();
     }
 }
