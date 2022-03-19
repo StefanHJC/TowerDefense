@@ -23,9 +23,12 @@ public class MoveState : State
         _animator = GetComponent<Animator>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        transform.position = Vector3.MoveTowards(transform.position, _target.transform.position, Enemy.Speed * Time.deltaTime);
+        Vector3 targetDirection = _target.transform.position - transform.position;
+
+        Enemy.Rigidbody.MovePosition(Vector3.MoveTowards(transform.position, _target.transform.position, Enemy.Speed * Time.fixedDeltaTime));
+        Enemy.Rigidbody.MoveRotation(Quaternion.Lerp(Enemy.Rigidbody.rotation, Quaternion.LookRotation(targetDirection), 2 * Time.fixedDeltaTime));
     }
 
     private void OnDisable()
@@ -36,10 +39,17 @@ public class MoveState : State
     private void OnWayPointReached()
     {
         _target.Reached -= OnWayPointReached;
-        _targetIndex++;
         _target = GetNextWayPoint();
         _target.Reached += OnWayPointReached;
     }
 
-    private WayPoint GetNextWayPoint() => Enemy.Road.Way[_targetIndex];
+    private WayPoint GetNextWayPoint()
+    {
+        var wayPoint = Enemy.Road.Way[_targetIndex];
+
+        if (_targetIndex < Enemy.Road.Way.Count - 1)
+            _targetIndex++;
+
+        return wayPoint;
+    }
 }

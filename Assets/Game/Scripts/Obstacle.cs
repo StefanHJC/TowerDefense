@@ -3,17 +3,22 @@ using UnityEngine.Events;
 
 public class Obstacle : MonoBehaviour
 {
-    [SerializeField] protected int Health;
+    [SerializeField] private int _health;
 
-    protected int CurrentHealth;
+    protected int _currentHealth;
+
+    public int MaxHealth => _health;
+    public int Health => _currentHealth;
 
     public event UnityAction Destroyed;
+    public event UnityAction HealthChanged;
 
     public virtual void TakeDamage(int damage)
     {
-        CurrentHealth -= damage;
+        _currentHealth -= damage;
+        HealthChanged?.Invoke();
 
-        if (CurrentHealth <= 0)
+        if (_currentHealth <= 0)
         {
             gameObject.SetActive(false);
             Destroyed?.Invoke();
@@ -22,6 +27,6 @@ public class Obstacle : MonoBehaviour
     
     private void Start()
     {
-        CurrentHealth = Health;
+        _currentHealth = _health;
     }
 }

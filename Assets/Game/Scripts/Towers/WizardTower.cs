@@ -48,13 +48,26 @@ public class WizardTower : Tower
 
     private void OnTriggerEnter(Collider collision)
     {
-
         if (collision.TryGetComponent(out Enemy target))
         {
             EnemiesInShootingRange.Add(target);
 
             if (_currentAttack == null)
                 _currentAttack = StartCoroutine(Attack(EnemiesInShootingRange[EnemiesInShootingRange.Count - 1]));
+        }
+    }
+
+    private void OnTriggerExit(Collider collision)
+    {
+        if (collision.TryGetComponent(out Enemy target))
+        {
+            EnemiesInShootingRange.Remove(target);
+
+            if (_currentAttack != null)
+            {
+                StopCoroutine(_currentAttack);
+                _currentAttack = null;
+            }
         }
     }
 }

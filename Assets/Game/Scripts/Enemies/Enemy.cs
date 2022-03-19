@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
 
     private int _currentHealth;
     private Obstacle _target;
+    private Rigidbody _rigidbody;
 
     public int Damage => _damage;
     public float AttackDelay => _attackDelay;
@@ -22,6 +23,7 @@ public class Enemy : MonoBehaviour
     public Obstacle Target => _target;
     public CityEnter Destination => _destination;
     public Road Road => _roadToCity;
+    public Rigidbody Rigidbody => _rigidbody;
 
     public event UnityAction Died;
     public event UnityAction TargetDestroyed;
@@ -41,6 +43,7 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         _currentHealth = _health;
+        _rigidbody = GetComponent<Rigidbody>();
     }
 
     private void OnTriggerEnter(Collider collision)

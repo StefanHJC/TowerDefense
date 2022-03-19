@@ -4,5 +4,5 @@ using UnityEngine.UI;
 
 public class Bar : MonoBehaviour
 {
-    [SerializeField] protected Slider _slider;
+    [SerializeField] protected Slider Slider;
 }

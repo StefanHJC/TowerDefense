@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GateHealthBar : Bar
 {
-    [SerializeField] private Gate _gate;
+    [SerializeField] private Obstacle _gate;
 
     private TMP_Text _count;
 
