@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MoveState : State
@@ -8,19 +6,17 @@ public class MoveState : State
     private WayPoint _target;
     private int _targetIndex;
 
-    public override void Enter(CityEnter city)
+    public override void Enter()
     {
-        base.Enter(city);
+        base.Enter();
         _animator = GetComponent<Animator>();
         _animator.SetTrigger(EnemyAnimatorController.States.Run);
     }
 
     private void Start()
     {
-        _targetIndex = 0;
-        _target = GetNextWayPoint();
-        _target.Reached += OnWayPointReached;
-        _animator = GetComponent<Animator>();
+        InitRoad();
+        Enemy.RoadChanged += OnRoadChanged;
     }
 
     private void FixedUpdate()
@@ -36,11 +32,27 @@ public class MoveState : State
         _animator.ResetTrigger(EnemyAnimatorController.States.Run);
     }
 
-    private void OnWayPointReached()
+    private void OnWayPointReached(Enemy enemy)
     {
+        if (enemy != this.Enemy)
+            return;
+
         _target.Reached -= OnWayPointReached;
         _target = GetNextWayPoint();
         _target.Reached += OnWayPointReached;
+    }
+
+    private void OnRoadChanged()
+    {
+        InitRoad();
+    }
+
+    private void InitRoad()
+    {
+        _targetIndex = 0;
+        _target = GetNextWayPoint();
+        _target.Reached += OnWayPointReached;
+        _animator = GetComponent<Animator>();
     }
 
     private WayPoint GetNextWayPoint()

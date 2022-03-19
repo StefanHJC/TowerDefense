@@ -21,12 +21,12 @@ public class Enemy : MonoBehaviour
     public float Speed => _speed;
     public int Health => _currentHealth;
     public Obstacle Target => _target;
-    public CityEnter Destination => _destination;
     public Road Road => _roadToCity;
     public Rigidbody Rigidbody => _rigidbody;
 
     public event UnityAction Died;
     public event UnityAction TargetDestroyed;
+    public event UnityAction RoadChanged;
     public event UnityAction<Obstacle> ObstacleReached;
 
     public void TakeDamage(int damage)
@@ -34,10 +34,7 @@ public class Enemy : MonoBehaviour
         _currentHealth -= damage;
 
         if (_currentHealth <= 0)
-        {
-            Debug.Log("Die");
             Died?.Invoke();
-        }
     }
 
     private void Start()
@@ -53,6 +50,13 @@ public class Enemy : MonoBehaviour
             ObstacleReached?.Invoke(obstacle);
             obstacle.Destroyed += OnObstacleDestroyed;
             _target = obstacle;
+        }
+        else if (collision.TryGetComponent(out Crossroad crossroad))
+        {
+            var newRandomRoad = crossroad.RoadsToCity[Mathf.RoundToInt(Random.Range(0, crossroad.RoadsToCity.Count))];
+
+            _roadToCity = newRandomRoad;
+            RoadChanged?.Invoke();
         }
     }
 

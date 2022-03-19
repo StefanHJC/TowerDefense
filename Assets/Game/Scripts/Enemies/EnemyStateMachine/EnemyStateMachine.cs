@@ -5,14 +5,14 @@ public class EnemyStateMachine : MonoBehaviour
 {
     [SerializeField] private State _firstState;
 
-    private CityEnter _city;
+    private Road _roadToCity;
     private State _currentState;
 
     public State Current => _currentState;
 
     private void Start()
     {
-        _city = GetComponent<Enemy>().Destination;
+        _roadToCity = GetComponent<Enemy>().Road;
         Reset(_firstState);
     }
 
@@ -32,7 +32,7 @@ public class EnemyStateMachine : MonoBehaviour
         _currentState = startState;
 
         if (_currentState != null)
-            _currentState.Enter(_city);
+            _currentState.Enter();
     }
 
     private void Transit(State nextState)
@@ -43,6 +43,6 @@ public class EnemyStateMachine : MonoBehaviour
         _currentState = nextState;
 
         if (_currentState != null)
-            _currentState.Enter(_city);
+            _currentState.Enter();
     }
 }
