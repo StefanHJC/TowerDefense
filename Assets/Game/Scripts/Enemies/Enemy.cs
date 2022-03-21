@@ -8,7 +8,6 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int _health;
     [SerializeField] private float _speed;
     [SerializeField] private float _attackDelay;
-    [SerializeField] private CityEnter _destination;
     [SerializeField] private int _reward;
     [SerializeField] private Road _roadToCity;
 
@@ -37,6 +36,12 @@ public class Enemy : MonoBehaviour
             Died?.Invoke();
     }
 
+    public void SetRoad(Road road)
+    {
+        _roadToCity = road;
+        RoadChanged?.Invoke();
+    }
+
     private void Start()
     {
         _currentHealth = _health;
@@ -55,8 +60,7 @@ public class Enemy : MonoBehaviour
         {
             var newRandomRoad = crossroad.RoadsToCity[Mathf.RoundToInt(Random.Range(0, crossroad.RoadsToCity.Count))];
 
-            _roadToCity = newRandomRoad;
-            RoadChanged?.Invoke();
+            SetRoad(newRandomRoad);
         }
     }
 

@@ -14,7 +14,7 @@ public class WavesHandler : MonoBehaviour
     public int TotalMonstersAmount => _totalMonstersAmount;
 
     public event UnityAction WaveStarted;
-    public event UnityAction WaveExpired;
+    public event UnityAction AllWavesExpired;
 
     public float GetTimeBeforeNextWave() => _delayBetweenWaves - _elapsedAfterWave;
 
@@ -22,13 +22,14 @@ public class WavesHandler : MonoBehaviour
     {
         foreach (var spawner in _spawners)
         {
-            spawner.AllEnemiesSpawned += OnAllEnemiesInSpawnerSpawned;
+            spawner.AllEnemiesInWaveSpawned += OnAllEnemiesInSpawnerSpawned;
 
             foreach (var wave in spawner.Waves)
             {
                 _totalMonstersAmount += wave.Count;
             }
         }
+        _emptySpawnersCount = _spawners.Count;
     }
 
     private void Update()
@@ -37,25 +38,36 @@ public class WavesHandler : MonoBehaviour
         {
             _elapsedAfterWave += Time.deltaTime;
             if (_elapsedAfterWave >= _delayBetweenWaves)
-                WaveStarted?.Invoke();
+                StartWave();
         }
+    }
+
+    private void StartWave()
+    {
+        _emptySpawnersCount = 0;
+        _elapsedAfterWave = 0;
+        WaveStarted?.Invoke();
     }
 
     private void OnAllEnemiesInSpawnerSpawned()
     {
         _emptySpawnersCount++;
 
-        foreach (var spawner in _spawners)
-            if (spawner.Waves.Count - 1 == spawner.CurrentWaveIndex)
+        for (int i = 0; i < _spawners.Count; i++)
+            if (_spawners[i].Waves.Count == _spawners[i].CurrentWaveIndex)
             {
-                spawner.AllEnemiesSpawned -= OnAllEnemiesInSpawnerSpawned;
-                _spawners.Remove(spawner);
+                _spawners[i].AllEnemiesInWaveSpawned -= OnAllEnemiesInSpawnerSpawned;
+                _spawners[i].gameObject.SetActive(false);
+                _spawners.Remove(_spawners[i]);
+
+                if (_spawners.Count == 0)
+                    AllWavesExpired?.Invoke();
             }
     }
 
     private void OnDisable()
     {
         foreach (var spawner in _spawners)
-            spawner.AllEnemiesSpawned -= OnAllEnemiesInSpawnerSpawned;
+            spawner.AllEnemiesInWaveSpawned -= OnAllEnemiesInSpawnerSpawned;
     }
 }

@@ -7,6 +7,7 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private List<Wave> _waves;
     [SerializeField] private WavesHandler _wavesHandler;
+    [SerializeField] private Road _road;
 
     private int _currentWaveIndex;
     private int _spawnedAmount;
@@ -15,7 +16,7 @@ public class EnemySpawner : MonoBehaviour
     public int CurrentWaveIndex => _currentWaveIndex;
     public List<Wave> Waves => _waves;
 
-    public event UnityAction AllEnemiesSpawned;
+    public event UnityAction AllEnemiesInWaveSpawned;
 
     [System.Serializable]
     public class Wave
@@ -25,15 +26,20 @@ public class EnemySpawner : MonoBehaviour
         public float Delay;
     }
 
-    private void Start()
-    {
-        _wavesHandler.WaveStarted += SpawnNextWave; 
-    }
-
     public void SpawnNextWave()
     {
-        SetWave(++_currentWaveIndex);
+        if (_currentWaveIndex == _waves.Count - 1)
+            _wavesHandler.WaveStarted -= SpawnNextWave;
+
+        SetWave(++_currentWaveIndex - 1);
         _spawnedAmount = 0;
+
+        StartCoroutine(SpawnWave());
+    }
+
+    private void Start()
+    {
+        _wavesHandler.WaveStarted += SpawnNextWave;
     }
 
     private void SetWave(int index)
@@ -44,6 +50,7 @@ public class EnemySpawner : MonoBehaviour
     private void SpawnEnemy()
     {
         Enemy enemy = Instantiate(_currentWave.Prefab, transform.position, transform.rotation).GetComponent<Enemy>();
+        enemy.SetRoad(_road);
         _spawnedAmount++;
     }
 
@@ -56,5 +63,6 @@ public class EnemySpawner : MonoBehaviour
             SpawnEnemy();
             yield return waitForSpawnDelay;
         }
+        AllEnemiesInWaveSpawned?.Invoke();
     }
 }

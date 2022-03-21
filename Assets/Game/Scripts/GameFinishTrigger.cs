@@ -18,7 +18,7 @@ public class GameFinishTrigger : MonoBehaviour
     {
         _cityEnter = GetComponent<CityEnter>();
         _cityEnter.MonsterMissed += OnMonsterMissed;
-        _wavesHandler.WaveExpired += OnWaveExpired;
+        _wavesHandler.AllWavesExpired += OnAllWavesExpired;
     }
 
     private void OnMonsterMissed()
@@ -35,7 +35,7 @@ public class GameFinishTrigger : MonoBehaviour
         _gameWon?.Invoke();
     }
 
-    private void OnWaveExpired()
+    private void OnAllWavesExpired()
     {
         Debug.Log("Wave expired");
     }
