@@ -5,10 +5,8 @@ using UnityEngine.Events;
 public class GameFinishTrigger : MonoBehaviour
 {
     [SerializeField] private int _needMissForLose;
-    [SerializeField] private Player _player;
     [SerializeField] private WavesHandler _wavesHandler;
-    [SerializeField] private UnityEvent _gameLost;
-    [SerializeField] private UnityEvent _gameWon;
+    [SerializeField] private UnityEvent<bool> _gameOver;
 
     private CityEnter _cityEnter;
 
@@ -25,14 +23,14 @@ public class GameFinishTrigger : MonoBehaviour
     {
         if (_cityEnter.MissedMonstersCount >= _needMissForLose)
         {
-            _gameLost?.Invoke();
+            _gameOver?.Invoke(false);
             _cityEnter.MonsterMissed -= OnMonsterMissed;
         }
     }
 
     private void OnAllMonstersKilled()
     {
-        _gameWon?.Invoke();
+        _gameOver?.Invoke(true);
     }
 
     private void OnAllWavesExpired()

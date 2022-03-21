@@ -8,7 +8,7 @@ public class ObstacleDestroyedTransition : Transition
 
     private void OnDestroy()
     {
-        Enemy.TargetDestroyed -= OnObstacleDestroyed;
+        //Enemy.TargetDestroyed -= OnObstacleDestroyed;
     }
 
     private void OnObstacleDestroyed()
