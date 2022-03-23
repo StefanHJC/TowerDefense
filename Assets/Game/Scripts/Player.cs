@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class Player : MonoBehaviour
-{
+{ 
     private int _gold;
     private int _monstersKilled;
 
