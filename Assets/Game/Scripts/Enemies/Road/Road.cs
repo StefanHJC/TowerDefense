@@ -8,6 +8,12 @@ public class Road : MonoBehaviour
 
     public List<WayPoint> Way => _wayPoints;
 
+    private void Start()
+    {
+        foreach (var waypoint in Way)
+            WayPoints.List.Add(waypoint);
+    }
+
     public void AddWayPoint(WayPoint wayPoint, bool addFirst = false)
     {
         if (addFirst)

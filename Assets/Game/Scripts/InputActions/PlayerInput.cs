@@ -53,6 +53,33 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MousePosition"",
+                    ""type"": ""Value"",
+                    ""id"": ""83554a68-1a8c-45e0-bca2-04fa8f589596"",
+                    ""expectedControlType"": ""Vector3"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MouseLeftButtonClicked"",
+                    ""type"": ""Button"",
+                    ""id"": ""91785c77-8199-4dd2-bbec-f8efa741ddbc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MouseRightButtonClicked"",
+                    ""type"": ""Button"",
+                    ""id"": ""4a04f4ef-bd80-4d5d-a328-b1ca8b0070e7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -154,8 +181,57 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""Rotate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c392c8e0-2eac-4243-b7a8-2e8efb62f7e7"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MousePosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e0e4a97a-938d-4e22-ad50-033e5179dca8"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseLeftButtonClicked"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""919e63d1-1abb-4360-96e1-675987e9389a"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseRightButtonClicked"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""UI"",
+            ""id"": ""0b72b564-a02a-4c21-aac4-735672a46bc3"",
+            ""actions"": [
+                {
+                    ""name"": ""PlaceBuilding"",
+                    ""type"": ""Value"",
+                    ""id"": ""7ae7e226-c4aa-4a1e-8a91-d280dc62337b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": []
         }
     ],
     ""controlSchemes"": []
@@ -165,6 +241,12 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Zoom = m_Player.FindAction("Zoom", throwIfNotFound: true);
         m_Player_Rotate = m_Player.FindAction("Rotate", throwIfNotFound: true);
+        m_Player_MousePosition = m_Player.FindAction("MousePosition", throwIfNotFound: true);
+        m_Player_MouseLeftButtonClicked = m_Player.FindAction("MouseLeftButtonClicked", throwIfNotFound: true);
+        m_Player_MouseRightButtonClicked = m_Player.FindAction("MouseRightButtonClicked", throwIfNotFound: true);
+        // UI
+        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+        m_UI_PlaceBuilding = m_UI.FindAction("PlaceBuilding", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -227,6 +309,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Zoom;
     private readonly InputAction m_Player_Rotate;
+    private readonly InputAction m_Player_MousePosition;
+    private readonly InputAction m_Player_MouseLeftButtonClicked;
+    private readonly InputAction m_Player_MouseRightButtonClicked;
     public struct PlayerActions
     {
         private @PlayerInput m_Wrapper;
@@ -234,6 +319,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Zoom => m_Wrapper.m_Player_Zoom;
         public InputAction @Rotate => m_Wrapper.m_Player_Rotate;
+        public InputAction @MousePosition => m_Wrapper.m_Player_MousePosition;
+        public InputAction @MouseLeftButtonClicked => m_Wrapper.m_Player_MouseLeftButtonClicked;
+        public InputAction @MouseRightButtonClicked => m_Wrapper.m_Player_MouseRightButtonClicked;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -252,6 +340,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Rotate.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRotate;
                 @Rotate.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRotate;
                 @Rotate.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRotate;
+                @MousePosition.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMousePosition;
+                @MousePosition.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMousePosition;
+                @MousePosition.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMousePosition;
+                @MouseLeftButtonClicked.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMouseLeftButtonClicked;
+                @MouseLeftButtonClicked.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMouseLeftButtonClicked;
+                @MouseLeftButtonClicked.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMouseLeftButtonClicked;
+                @MouseRightButtonClicked.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMouseRightButtonClicked;
+                @MouseRightButtonClicked.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMouseRightButtonClicked;
+                @MouseRightButtonClicked.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMouseRightButtonClicked;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -265,14 +362,63 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Rotate.started += instance.OnRotate;
                 @Rotate.performed += instance.OnRotate;
                 @Rotate.canceled += instance.OnRotate;
+                @MousePosition.started += instance.OnMousePosition;
+                @MousePosition.performed += instance.OnMousePosition;
+                @MousePosition.canceled += instance.OnMousePosition;
+                @MouseLeftButtonClicked.started += instance.OnMouseLeftButtonClicked;
+                @MouseLeftButtonClicked.performed += instance.OnMouseLeftButtonClicked;
+                @MouseLeftButtonClicked.canceled += instance.OnMouseLeftButtonClicked;
+                @MouseRightButtonClicked.started += instance.OnMouseRightButtonClicked;
+                @MouseRightButtonClicked.performed += instance.OnMouseRightButtonClicked;
+                @MouseRightButtonClicked.canceled += instance.OnMouseRightButtonClicked;
             }
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // UI
+    private readonly InputActionMap m_UI;
+    private IUIActions m_UIActionsCallbackInterface;
+    private readonly InputAction m_UI_PlaceBuilding;
+    public struct UIActions
+    {
+        private @PlayerInput m_Wrapper;
+        public UIActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @PlaceBuilding => m_Wrapper.m_UI_PlaceBuilding;
+        public InputActionMap Get() { return m_Wrapper.m_UI; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
+        public void SetCallbacks(IUIActions instance)
+        {
+            if (m_Wrapper.m_UIActionsCallbackInterface != null)
+            {
+                @PlaceBuilding.started -= m_Wrapper.m_UIActionsCallbackInterface.OnPlaceBuilding;
+                @PlaceBuilding.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnPlaceBuilding;
+                @PlaceBuilding.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnPlaceBuilding;
+            }
+            m_Wrapper.m_UIActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @PlaceBuilding.started += instance.OnPlaceBuilding;
+                @PlaceBuilding.performed += instance.OnPlaceBuilding;
+                @PlaceBuilding.canceled += instance.OnPlaceBuilding;
+            }
+        }
+    }
+    public UIActions @UI => new UIActions(this);
     public interface IPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);
         void OnZoom(InputAction.CallbackContext context);
         void OnRotate(InputAction.CallbackContext context);
+        void OnMousePosition(InputAction.CallbackContext context);
+        void OnMouseLeftButtonClicked(InputAction.CallbackContext context);
+        void OnMouseRightButtonClicked(InputAction.CallbackContext context);
+    }
+    public interface IUIActions
+    {
+        void OnPlaceBuilding(InputAction.CallbackContext context);
     }
 }

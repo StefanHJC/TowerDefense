@@ -498,6 +498,8 @@ GameObject:
   - component: {fileID: 9566220}
   - component: {fileID: 4992723108888025989}
   - component: {fileID: 9125868849478375410}
+  - component: {fileID: -985106102017038360}
+  - component: {fileID: 4205112891761571625}
   m_Layer: 0
   m_Name: Tower Mage
   m_TagString: Untagged
@@ -554,7 +556,7 @@ SphereCollider:
   m_GameObject: {fileID: 187918}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -572,10 +574,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShootRange: 3
   Cost: 1
-  Damage: 1
   DelayBetweenShoots: 1
   ShellPrefab: {fileID: -4895153363454366526, guid: 78fe2109a55e3c54bb1a4188889315b3, type: 3}
   ShootPoint: {fileID: 4161222010479230868}
+--- !u!114 &-985106102017038360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72bb3048f8e1d2644acb591e27c0b421, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CanBePlaced: 0
+--- !u!136 &4205112891761571625
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187918}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2.0270348
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.5135191, z: 0}
 --- !u!1 &1396047196106669643
 GameObject:
   m_ObjectHideFlags: 0

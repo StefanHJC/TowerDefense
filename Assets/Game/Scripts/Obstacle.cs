@@ -5,7 +5,7 @@ public class Obstacle : MonoBehaviour
 {
     [SerializeField] private int _health;
 
-    protected int _currentHealth;
+    private int _currentHealth;
 
     public int MaxHealth => _health;
     public int Health => _currentHealth;
