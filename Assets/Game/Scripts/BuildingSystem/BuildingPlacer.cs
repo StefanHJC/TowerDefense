@@ -29,7 +29,6 @@ public class BuildingPlacer : MonoBehaviour
         _playerInput.Player.MouseLeftButtonClicked.performed += ctx => TryPlaceBuilding();
         _playerInput.Player.MouseRightButtonClicked.performed += ctx => CancelPlacing();
 
-
         _mainCamera = Camera.main;
     }
 
@@ -57,7 +56,6 @@ public class BuildingPlacer : MonoBehaviour
                 building.SetColor(Color.red);
                 return false;
             }
-
         building.SetColor(Color.green);
         return true;
     }
