@@ -16,7 +16,7 @@ public class AttackState : State
         if (_lastAttackTime <= 0)
         {
             Attack(Enemy.Target);
-            _lastAttackTime = Enemy.AttackDelay;
+            _lastAttackTime = Enemy.Stats.AttackDelay;
         }
         _lastAttackTime -= Time.deltaTime;
     }
@@ -29,6 +29,6 @@ public class AttackState : State
     private void Attack(Obstacle target)
     {
         _animator.SetTrigger(EnemyAnimatorController.States.Attack);
-        target.TakeDamage(Enemy.Damage);
+        target.TakeDamage(Enemy.Stats.Damage);
     }
 }

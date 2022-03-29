@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4644a3910054fa45be43940a81da455, type: 3}
+  m_Name: WizardTower
+  m_EditorClassIdentifier: 
+  Description: 
+  _shootRange: 3
+  _buildPrice: 1
+  _delayBetweenShoots: 1
+  _shellPrefab: {fileID: -4895153363454366526, guid: 78fe2109a55e3c54bb1a4188889315b3, type: 3}

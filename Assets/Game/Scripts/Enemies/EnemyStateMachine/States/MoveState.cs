@@ -23,7 +23,7 @@ public class MoveState : State
     {
         Vector3 targetDirection = _target.transform.position - transform.position;
 
-        Enemy.Rigidbody.MovePosition(Vector3.MoveTowards(transform.position, _target.transform.position, Enemy.Speed * Time.fixedDeltaTime));
+        Enemy.Rigidbody.MovePosition(Vector3.MoveTowards(transform.position, _target.transform.position, Enemy.Stats.Speed * Time.fixedDeltaTime));
         Enemy.Rigidbody.MoveRotation(Quaternion.Lerp(Enemy.Rigidbody.rotation, Quaternion.LookRotation(targetDirection), 2 * Time.fixedDeltaTime));
     }
 

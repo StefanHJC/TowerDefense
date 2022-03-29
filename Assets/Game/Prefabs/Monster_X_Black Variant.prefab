@@ -12,6 +12,10 @@ PrefabInstance:
       value: 45
       objectReference: {fileID: 0}
     - target: {fileID: -7943470310176635853, guid: 3de438e70702ebf428d028c739828f43, type: 3}
+      propertyPath: _stats
+      value: 
+      objectReference: {fileID: 11400000, guid: a9862dd5ca4f73e4a827ceed042fafff, type: 2}
+    - target: {fileID: -7943470310176635853, guid: 3de438e70702ebf428d028c739828f43, type: 3}
       propertyPath: _damage
       value: 10
       objectReference: {fileID: 0}
@@ -37,7 +41,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100066, guid: 3de438e70702ebf428d028c739828f43, type: 3}
       propertyPath: m_Name
-      value: Monster_X_Black
+      value: Monster_X_Black Variant
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 3de438e70702ebf428d028c739828f43, type: 3}
       propertyPath: m_RootOrder

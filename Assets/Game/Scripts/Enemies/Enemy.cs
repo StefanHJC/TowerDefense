@@ -4,20 +4,14 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Rigidbody))]
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private int _damage;
-    [SerializeField] private int _health;
-    [SerializeField] private float _speed;
-    [SerializeField] private float _attackDelay;
-    [SerializeField] private int _reward;
+    [SerializeField] private EnemyStats _stats;
     [SerializeField] private Road _roadToCity;
 
     private int _currentHealth;
     private Obstacle _target;
     private Rigidbody _rigidbody;
 
-    public int Damage => _damage;
-    public float AttackDelay => _attackDelay;
-    public float Speed => _speed;
+    public EnemyStats Stats => _stats;
     public int Health => _currentHealth;
     public Obstacle Target => _target;
     public Road Road => _roadToCity;
@@ -44,7 +38,7 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        _currentHealth = _health;
+        _currentHealth = Stats.MaxHealth;
         _rigidbody = GetComponent<Rigidbody>();
     }
 

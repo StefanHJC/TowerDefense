@@ -8,14 +8,4 @@ public class SoldierTower : Tower
     {
         throw new System.NotImplementedException();
     }
-
-    public override void Build(Transform position)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override void Destroy()
-    {
-        throw new System.NotImplementedException();
-    }
 }

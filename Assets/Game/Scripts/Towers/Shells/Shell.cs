@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Shell : MonoBehaviour
 {
-    [SerializeField] private int _speed;
-    [SerializeField] private int _damage;
+    [SerializeField] private ShellStats _stats;
 
     private Transform _target;
     private Vector3 _targetPosition;
@@ -18,7 +15,7 @@ public class Shell : MonoBehaviour
 
     private void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, _targetPosition, _speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, _targetPosition, _stats.Speed * Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider collision)
@@ -26,7 +23,7 @@ public class Shell : MonoBehaviour
         if (collision.TryGetComponent(out Enemy enemy))
         {
             if (enemy.isActiveAndEnabled)
-                enemy.TakeDamage(_damage);
+                enemy.TakeDamage(_stats.Damage);
 
             Destroy(gameObject);        
         }

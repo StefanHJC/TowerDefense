@@ -11,7 +11,7 @@ public class WizardTower : Tower
 
     public override IEnumerator Attack(Enemy target)
     {
-        var waitForDelay = new WaitForSeconds(DelayBetweenShoots);
+        var waitForDelay = new WaitForSeconds(Stats.DelayBetweenShoots);
 
         while (target.Health >= 0)
         {
@@ -23,16 +23,6 @@ public class WizardTower : Tower
 
         if (EnemiesInShootingRange.Count > 0)
             _currentAttack = StartCoroutine(Attack(EnemiesInShootingRange[EnemiesInShootingRange.Count - 1]));
-    }
-
-    public override void Build(Transform position)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override void Destroy()
-    {
-        throw new System.NotImplementedException();
     }
 
     private void Start()

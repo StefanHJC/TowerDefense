@@ -572,10 +572,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61e3c0f8fd42fc84d81d374b74d29b9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShootRange: 3
-  Cost: 1
-  DelayBetweenShoots: 1
-  ShellPrefab: {fileID: -4895153363454366526, guid: 78fe2109a55e3c54bb1a4188889315b3, type: 3}
+  Stats: {fileID: 11400000, guid: 885878692d3ef77439e6c7bd6cdf8eb1, type: 2}
   ShootPoint: {fileID: 4161222010479230868}
 --- !u!114 &-985106102017038360
 MonoBehaviour:
@@ -589,7 +586,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72bb3048f8e1d2644acb591e27c0b421, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanBePlaced: 0
 --- !u!136 &4205112891761571625
 CapsuleCollider:
   m_ObjectHideFlags: 0
