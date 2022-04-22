@@ -1,13 +1,18 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildingPlacer : MonoBehaviour
 {
+    [SerializeField] private List<NoneBuildingArea> _noneBuildingAreas;
+    [SerializeField] private Terrain _terrain;
+    [SerializeField] private Camera _mainCamera;
     [SerializeField] private float _allowedDistanceToWaypoints;
     [SerializeField] private float _allowedDistanceToStructures;
 
     private Building _awaitingPlacement;
-    private Camera _mainCamera;
     private PlayerInput _playerInput;
+    private TerrainCollider _terrainCollider;
+    private bool _canBePlaced;
 
     public void StartPlacing(Building prefab)
     {
@@ -29,7 +34,7 @@ public class BuildingPlacer : MonoBehaviour
         _playerInput.Player.MouseLeftButtonClicked.performed += ctx => TryPlaceBuilding();
         _playerInput.Player.MouseRightButtonClicked.performed += ctx => CancelPlacing();
 
-        _mainCamera = Camera.main;
+        _terrainCollider = GetComponent<TerrainCollider>();
     }
 
     private void OnEnable()
@@ -50,12 +55,22 @@ public class BuildingPlacer : MonoBehaviour
 
     private bool CheckPlaceAvailibility(Building building)
     {
-        foreach(var waypoint in WayPoints.List)
+        bool NotAvailable()
+        {
+            building.SetColor(Color.red);
+            _canBePlaced = false;
+            return false;
+        }
+        _canBePlaced = true;
+
+        foreach (var waypoint in WayPoints.List)
             if (Vector3.Distance(_awaitingPlacement.transform.position, waypoint.transform.position) < _allowedDistanceToWaypoints)
-            {
-                building.SetColor(Color.red);
-                return false;
-            }
+                return NotAvailable();
+
+        foreach (var area in _noneBuildingAreas)
+            if (area.ReturnIsPointInside(_awaitingPlacement.transform))
+                return NotAvailable();
+
         building.SetColor(Color.green);
         return true;
     }
@@ -66,18 +81,18 @@ public class BuildingPlacer : MonoBehaviour
         Vector2 mousePosition = _playerInput.Player.MousePosition.ReadValue<Vector2>();
         Ray ray = _mainCamera.ScreenPointToRay(mousePosition);
 
-        if (groundPlane.Raycast(ray, out float position))
+        if (_terrainCollider.Raycast(ray, out var hitInfo, Mathf.Infinity))
         {
-            Vector3 worldPosition = ray.GetPoint(position);
+            Vector3 worldPosition = hitInfo.point;
 
-            _awaitingPlacement.transform.position = new Vector3(worldPosition.x, 0, worldPosition.z);
+            _awaitingPlacement.transform.position = new Vector3(worldPosition.x, worldPosition.y, worldPosition.z);
             CheckPlaceAvailibility(_awaitingPlacement);
         }
     }
 
     private void TryPlaceBuilding()
     {
-        if (_awaitingPlacement == null)
+        if (_awaitingPlacement == null || _canBePlaced == false)
             return;
 
         _awaitingPlacement.ResetColor();
