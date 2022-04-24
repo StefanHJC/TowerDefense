@@ -1,11 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider))]
 public class Building : MonoBehaviour
 {
+    [SerializeField] private int _buildingPrice;
+
     private List<Renderer> _renderers;
     private Material _material;
+
+    public int Price => _buildingPrice;
 
     private void Awake()
     {

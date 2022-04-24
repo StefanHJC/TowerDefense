@@ -17,6 +17,7 @@ public class EnemySpawner : MonoBehaviour
     public List<Wave> Waves => _waves;
 
     public event UnityAction AllEnemiesInWaveSpawned;
+    public event UnityAction<Enemy> EnemyDied;
 
     [System.Serializable]
     public class Wave
@@ -34,12 +35,13 @@ public class EnemySpawner : MonoBehaviour
         SetWave(++_currentWaveIndex - 1);
         _spawnedAmount = 0;
 
-        StartCoroutine(SpawnWave());
+        if (_currentWave.Count > 0)
+            StartCoroutine(SpawnWave());
     }
 
     private void Start()
     {
-        _wavesHandler.WaveStarted += SpawnNextWave;
+            _wavesHandler.WaveStarted += SpawnNextWave;
     }
 
     private void SetWave(int index)
@@ -47,10 +49,16 @@ public class EnemySpawner : MonoBehaviour
         _currentWave = _waves[index];
     }
 
+    private void OnEnemyDied(Enemy enemy)
+    {
+        EnemyDied?.Invoke(enemy);
+    }
+
     private void SpawnEnemy()
     {
         Enemy enemy = Instantiate(_currentWave.Prefab, transform.position, transform.rotation).GetComponent<Enemy>();
         enemy.SetRoad(_road);
+        enemy.Died += OnEnemyDied;
         _spawnedAmount++;
     }
 

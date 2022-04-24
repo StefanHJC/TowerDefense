@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Description: 
   _damage: 10
-  _maxHealth: 10
-  _speed: 45
-  _attackDelay: 1
-  _reward: 1
+  _maxHealth: 100
+  _speed: 5
+  _attackDelay: 2
+  _reward: 10
+  _deathSpeed: 0.05

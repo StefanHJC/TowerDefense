@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Obstacle : MonoBehaviour
+public class Obstacle : Building
 {
     [SerializeField] private int _health;
 

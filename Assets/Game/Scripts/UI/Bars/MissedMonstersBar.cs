@@ -5,12 +5,14 @@ using UnityEngine;
 public class MissedMonstersBar : Bar
 {
     [SerializeField] private CityEnter _cityEnter;
+    [SerializeField] private LevelSettings _levelSettings;
 
     private TMP_Text _count;
 
     private void Start()
     {
         _count = GetComponent<TMP_Text>();
+        _count.text = $"0/{_levelSettings.NeedMissForLose}";
     }
 
     private void OnEnable()
@@ -25,6 +27,6 @@ public class MissedMonstersBar : Bar
 
     private void OnValueChanged()
     {
-        _count.text = _cityEnter.MissedMonstersCount.ToString();
+        _count.text = $"{_cityEnter.MissedMonstersCount}/{_levelSettings.NeedMissForLose}";
     }
 }

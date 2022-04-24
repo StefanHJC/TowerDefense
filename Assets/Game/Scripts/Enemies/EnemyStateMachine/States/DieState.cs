@@ -1,11 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DieState : State
 {
-    [SerializeField] private float _deathSpeed;
-
     private Animator _animator;
     private Enemy _enemy;
 
@@ -19,12 +16,12 @@ public class DieState : State
 
     private void Update()
     {
-        _enemy.transform.Translate(Vector3.down * _deathSpeed * Time.deltaTime);
+        _enemy.transform.Translate(Vector3.down * _enemy.Stats.DeathSpeed * Time.deltaTime);
     }
 
     private IEnumerator Die()
     {
-        while (_enemy.transform.position.y > -15)
+        while (_enemy.transform.position.y > 9)
             yield return null;
 
         Destroy(_enemy.gameObject);

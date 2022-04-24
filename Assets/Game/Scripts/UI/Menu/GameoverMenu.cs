@@ -12,14 +12,14 @@ public class GameoverMenu : Menu
 
     private void Start()
     {
-        _finalStats = $"\n Всего золота накоплено: {_player.GoldCollected} \n Всего монстров убито: {_player.MonstersKilled}";
+        _finalStats = $"\n Всего золота накоплено: {_player.Gold} \n Всего монстров убито: {_player.MonstersKilled}";
     }
 
-    public void OnGameFinished(bool gameWon)
+    public void OnGameFinished(bool isGameWon)
     {
-        if (gameWon)
-            _finalMessage.text = _onWinMessage + _finalStats;
+        if (isGameWon)
+            _finalMessage.text = $"{_onWinMessage}";
         else
-            _finalMessage.text = _onLoseMessage + _finalStats;
+            _finalMessage.text = $"{_onLoseMessage}";
     }
 }

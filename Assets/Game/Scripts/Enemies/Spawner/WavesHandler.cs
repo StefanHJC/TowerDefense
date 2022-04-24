@@ -11,7 +11,8 @@ public class WavesHandler : MonoBehaviour
     private int _emptySpawnersCount;
     private float _elapsedAfterWave;
 
-    public int TotalMonstersAmount => _totalMonstersAmount;
+    public List<EnemySpawner> EnemySpawners => _spawners;
+    public int TotalMonstersAmount => _totalMonstersAmount; 
 
     public event UnityAction WaveStarted;
     public event UnityAction AllWavesExpired;

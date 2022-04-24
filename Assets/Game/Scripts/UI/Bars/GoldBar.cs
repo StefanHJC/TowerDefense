@@ -11,6 +11,7 @@ public class GoldBar : Bar
     private void Start()
     {
         _count = GetComponent<TMP_Text>();
+        _count.text = _player.Gold.ToString();
     }
 
     private void OnEnable()

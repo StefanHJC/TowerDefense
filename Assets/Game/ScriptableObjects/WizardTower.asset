@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WizardTower
   m_EditorClassIdentifier: 
   Description: 
-  _shootRange: 3
-  _buildPrice: 1
+  BuildingPrice: 1
+  _shootRange: 4
   _delayBetweenShoots: 1
-  _shellPrefab: {fileID: -4895153363454366526, guid: 78fe2109a55e3c54bb1a4188889315b3, type: 3}
+  _shellPrefab: {fileID: 9150891377420789296, guid: 4438ce9f9f654cc479cc62472f2cca07, type: 3}

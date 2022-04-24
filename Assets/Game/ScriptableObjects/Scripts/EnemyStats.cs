@@ -8,9 +8,13 @@ public class EnemyStats : Stats
     [SerializeField] private float _speed;
     [SerializeField] private float _attackDelay;
     [SerializeField] private int _reward;
+    [SerializeField] private float _deathSpeed;
 
     public int Damage => _damage;
+    public int MaxHealth => _maxHealth;
+    public int Reward => _reward;
     public float AttackDelay => _attackDelay;
     public float Speed => _speed;
-    public int MaxHealth => _maxHealth;
+    public float DeathSpeed => _deathSpeed;
+    
 }

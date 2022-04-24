@@ -28,6 +28,9 @@ public class AttackState : State
 
     private void Attack(Obstacle target)
     {
+        if (target == null)
+            return;
+
         _animator.SetTrigger(EnemyAnimatorController.States.Attack);
         target.TakeDamage(Enemy.Stats.Damage);
     }

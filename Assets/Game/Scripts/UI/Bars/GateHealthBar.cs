@@ -1,15 +1,18 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GateHealthBar : Bar
 {
     [SerializeField] private Obstacle _gate;
-
-    private TMP_Text _count;
+    [SerializeField] private Slider _slider;
+    [SerializeField] private TMP_Text _count;
 
     private void Start()
     {
-        _count = GetComponent<TMP_Text>();
+        _slider.maxValue = _gate.MaxHealth;
+        _slider.value = _gate.MaxHealth;
+        _count.text = $"{_gate.MaxHealth}/{_gate.MaxHealth}";
     }
 
     private void OnEnable()
@@ -24,6 +27,7 @@ public class GateHealthBar : Bar
 
     private void OnValueChanged()
     {
-        _count.text = _gate.Health.ToString();
+        _count.text = $"{_gate.Health}/{_gate.MaxHealth}";
+        _slider.value = _gate.Health;
     }
 }

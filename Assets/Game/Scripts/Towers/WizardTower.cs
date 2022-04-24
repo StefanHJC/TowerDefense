@@ -15,7 +15,7 @@ public class WizardTower : Tower
 
         while (target.Health >= 0)
         {
-            Shoot(target.transform);
+            Shoot(target);
             yield return waitForDelay;
         }
         EnemiesInShootingRange.Remove(target);
@@ -29,6 +29,12 @@ public class WizardTower : Tower
     {
         base.Init();
         EnemiesInShootingRange = new List<Enemy>();
+    }
+
+    private void Update()
+    {
+        if (_currentAttack == null && EnemiesInShootingRange.Count > 0)
+            _currentAttack = StartCoroutine(Attack(EnemiesInShootingRange[EnemiesInShootingRange.Count - 1]));
     }
 
     private void Activate()

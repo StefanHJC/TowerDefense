@@ -1,8 +1,5 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class Bar : MonoBehaviour
+public abstract class Bar : MonoBehaviour
 {
-    [SerializeField] protected Slider Slider;
 }
