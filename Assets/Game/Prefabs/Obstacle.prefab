@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3300000}
   - component: {fileID: 2300000}
   - component: {fileID: 6400000}
-  - component: {fileID: -8209455495725873699}
+  - component: {fileID: 7475913637007403382}
   m_Layer: 0
   m_Name: Obstacle
   m_TagString: Untagged
@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: -0.7071069, y: 0, z: 0, w: 0.70710677}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 304.7048, y: 10.705628, z: 377.0602}
   m_LocalScale: {x: 0.4137153, y: 2.7581024, z: 0.4137153}
   m_Children: []
   m_Father: {fileID: 0}
@@ -97,7 +97,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 00d0b1b0be75d5d4b8910a4ee53e0455, type: 3}
---- !u!114 &-8209455495725873699
+--- !u!114 &7475913637007403382
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
