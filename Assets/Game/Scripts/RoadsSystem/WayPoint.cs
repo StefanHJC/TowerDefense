@@ -12,7 +12,6 @@ public class WayPoint : MonoBehaviour
     {
         _collider = GetComponent<SphereCollider>();
         _collider.isTrigger = true;
-        _collider.radius = 0.5f;
     }
 
     private void OnTriggerEnter(Collider collision)

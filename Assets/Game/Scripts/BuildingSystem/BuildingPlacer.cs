@@ -6,7 +6,6 @@ public class BuildingPlacer : MonoBehaviour
 {
     [SerializeField] private List<NoneBuildingArea> _noneBuildingAreas;
     [SerializeField] private Camera _mainCamera;
-    [SerializeField] private float _allowedDistanceToWaypoints;
     [SerializeField] private float _allowedDistanceToStructures;
     [SerializeField] private Player _player;
 
@@ -64,21 +63,23 @@ public class BuildingPlacer : MonoBehaviour
             SetBuildingPlace();
     }
 
-    private bool CheckPlaceAvailability(Building building)
+    private bool CheckPlaceAvailability()
     {
         bool ReturnAvailibility(bool isAvailable)
         {
             _canBePlaced = isAvailable;
-            building.ColorizeByAvailibility(_canBePlaced);
+            _awaitingPlacement.ColorizeByAvailibility(_canBePlaced);
 
-            return _canBePlaced;
+            return isAvailable;
         }
+        _canBePlaced = false;
 
-
-        if (_isTower)
-            foreach (var waypoint in WayPoints.List)
-                if (Vector3.Distance(_awaitingPlacement.transform.position, waypoint.transform.position) < _allowedDistanceToWaypoints)
-                    return ReturnAvailibility(false);
+        if (_awaitingPlacement.IsOnRoad)
+            if (_isTower)
+                return ReturnAvailibility(false);
+        
+        if (_isTower == false && _awaitingPlacement.IsOnRoad == false)
+            return ReturnAvailibility(false);
 
         foreach (var structure in Buildings.List)
             if (Vector3.Distance(_awaitingPlacement.transform.position, structure.transform.position) < _allowedDistanceToStructures)
@@ -101,7 +102,7 @@ public class BuildingPlacer : MonoBehaviour
             Vector3 worldPosition = hitInfo.point;
 
             _awaitingPlacement.transform.position = new Vector3(worldPosition.x, worldPosition.y, worldPosition.z);
-            CheckPlaceAvailability(_awaitingPlacement);
+            CheckPlaceAvailability();
         }
     }
 
@@ -119,8 +120,11 @@ public class BuildingPlacer : MonoBehaviour
         if (_shootRangeRenderer != null)
             _shootRangeRenderer.Disable();
 
+
+
         _player.ReduceGold(_awaitingPlacement.Price);
         _awaitingPlacement.ResetColor();
+        _awaitingPlacement.Init();
         Buildings.List.Add(_awaitingPlacement);
         _awaitingPlacement = null;
     }
