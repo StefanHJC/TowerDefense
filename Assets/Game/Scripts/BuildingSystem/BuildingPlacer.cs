@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(TerrainCollider))]
 public class BuildingPlacer : MonoBehaviour
 {
     [SerializeField] private List<NoneBuildingArea> _noneBuildingAreas;
-    [SerializeField] private Terrain _terrain;
     [SerializeField] private Camera _mainCamera;
     [SerializeField] private float _allowedDistanceToWaypoints;
     [SerializeField] private float _allowedDistanceToStructures;
@@ -66,36 +66,29 @@ public class BuildingPlacer : MonoBehaviour
 
     private bool CheckPlaceAvailability(Building building)
     {
-        bool NotAvailable()
+        bool ReturnAvailibility(bool isAvailable)
         {
-            building.SetColor(Color.red);
-            _canBePlaced = false;
+            _canBePlaced = isAvailable;
+            building.ColorizeByAvailibility(_canBePlaced);
 
-            return false;
+            return _canBePlaced;
         }
 
-        bool Available()
-        {
-            building.SetColor(Color.green);
-            _canBePlaced = true;
-
-            return true;
-        }
 
         if (_isTower)
             foreach (var waypoint in WayPoints.List)
                 if (Vector3.Distance(_awaitingPlacement.transform.position, waypoint.transform.position) < _allowedDistanceToWaypoints)
-                    return NotAvailable();
+                    return ReturnAvailibility(false);
 
         foreach (var structure in Buildings.List)
             if (Vector3.Distance(_awaitingPlacement.transform.position, structure.transform.position) < _allowedDistanceToStructures)
-                return NotAvailable();
+                return ReturnAvailibility(false);
 
         foreach (var area in _noneBuildingAreas)
-            if (area.ReturnIsPointInside(_awaitingPlacement.transform))
-                return NotAvailable();
+            if (area.IsPointInside(_awaitingPlacement.transform))
+                return ReturnAvailibility(false);
 
-        return Available();
+        return ReturnAvailibility(true);
     }
 
     private void SetBuildingPlace()

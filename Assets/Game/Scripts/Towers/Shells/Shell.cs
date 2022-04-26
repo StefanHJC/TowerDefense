@@ -6,7 +6,7 @@ public class Shell : MonoBehaviour
 
     private Enemy _target;
 
-    public void SetTarget(Enemy target)
+    public void Init(Enemy target)
     {
         _target = target;
     }

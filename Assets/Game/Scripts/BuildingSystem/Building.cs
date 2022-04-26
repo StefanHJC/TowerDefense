@@ -25,8 +25,11 @@ public class Building : MonoBehaviour
         _material.color = Color.white;
     }
 
-    public void SetColor(Color color)
+    public void ColorizeByAvailibility(bool canBePlaced)
     {
-        _material.color = color;
+        if (canBePlaced)
+            _material.color = Color.green;
+        else
+            _material.color = Color.red;
     }
 }

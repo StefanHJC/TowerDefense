@@ -7,8 +7,9 @@ public class Crossroad : MonoBehaviour
 {
     [SerializeField] private List<Road> _roadsFromSpawners;
     [SerializeField] private List<Road> _roadsToCity;
+    [SerializeField] private float _sphereGizmosRadius;
 
-    public List<Road> RoadsToCity => _roadsToCity;
+    public IReadOnlyList<Road> RoadsToCity => _roadsToCity;
 
     private void Start()
     {
@@ -17,7 +18,7 @@ public class Crossroad : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawSphere(transform.position, 2);
+        Gizmos.DrawSphere(transform.position, _sphereGizmosRadius);
     }
 
     private void ConnectRoads()

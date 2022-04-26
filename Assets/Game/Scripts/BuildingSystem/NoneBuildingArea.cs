@@ -18,7 +18,7 @@ public class NoneBuildingArea : MonoBehaviour
 {
     [SerializeField] private List<NoneBuildingAreaPoint> _points;
 
-    public bool ReturnIsPointInside(Transform point)
+    public bool IsPointInside(Transform point)
     {
         bool result = false;
         int verticesAmount = _points.Count - 1;

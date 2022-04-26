@@ -7,7 +7,6 @@ public class WizardTower : Tower
     private bool _isActive;
     private Coroutine _currentAttack;
 
-    public bool IsActive => _isActive;
 
     public override IEnumerator Attack(Enemy target)
     {
@@ -35,11 +34,6 @@ public class WizardTower : Tower
     {
         if (_currentAttack == null && EnemiesInShootingRange.Count > 0)
             _currentAttack = StartCoroutine(Attack(EnemiesInShootingRange[EnemiesInShootingRange.Count - 1]));
-    }
-
-    private void Activate()
-    {
-        _isActive = true;
     }
 
     private void OnTriggerEnter(Collider collision)

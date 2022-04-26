@@ -6,7 +6,7 @@ public class Road : MonoBehaviour
     [SerializeField] private List<WayPoint> _wayPoints;
     [SerializeField] private Color _colorInInspector;
 
-    public List<WayPoint> Way => _wayPoints;
+    public IReadOnlyList<WayPoint> Way => _wayPoints;
 
     private void Start()
     {

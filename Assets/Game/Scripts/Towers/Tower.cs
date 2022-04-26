@@ -27,6 +27,6 @@ public abstract class Tower : MonoBehaviour
     protected virtual void Shoot(Enemy target)
     {
         var shell = Instantiate(Stats.ShellPrefab, ShootPoint.position, ShootPoint.rotation);
-        shell.SetTarget(target);
+        shell.Init(target);
     }
 }

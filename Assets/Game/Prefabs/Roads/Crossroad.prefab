@@ -72,3 +72,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _roadsFromSpawners: []
   _roadsToCity: []
+  _sphereGizmosRadius: 2

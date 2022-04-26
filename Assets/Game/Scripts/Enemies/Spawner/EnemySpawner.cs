@@ -14,7 +14,7 @@ public class EnemySpawner : MonoBehaviour
     private Wave _currentWave;
 
     public int CurrentWaveIndex => _currentWaveIndex;
-    public List<Wave> Waves => _waves;
+    public IReadOnlyList<Wave> Waves => _waves;
 
     public event UnityAction AllEnemiesInWaveSpawned;
     public event UnityAction<Enemy> EnemyDied;
