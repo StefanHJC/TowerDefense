@@ -7,17 +7,13 @@ public class Building : MonoBehaviour
 
     private List<Renderer> _renderers;
     private Material _material;
+    private bool _isOnRoad;
 
     public int Price => _buildingPrice;
+    public bool IsOnRoad => _isOnRoad;
 
-    private void Awake()
+    public virtual void Init()
     {
-        _renderers = new List<Renderer>();
-        GetComponentsInChildren(_renderers);
-        _material = new Material(_renderers[0].sharedMaterial);
-
-        foreach (var renderer in _renderers)
-            renderer.sharedMaterial = _material;
     }
 
     public void ResetColor()
@@ -32,4 +28,34 @@ public class Building : MonoBehaviour
         else
             _material.color = Color.red;
     }
+
+    private void Awake()
+    {
+        _renderers = new List<Renderer>();
+        GetComponentsInChildren(_renderers);
+        _material = new Material(_renderers[0].sharedMaterial);
+        _isOnRoad = false;
+
+        foreach (var renderer in _renderers)
+            renderer.sharedMaterial = _material;
+    }
+
+    private void OnTriggerEnter(Collider collision)
+    {
+        if (collision.TryGetComponent<WayPoint>(out var _))
+            _isOnRoad = true;
+    }
+
+    private void OnTriggerStay(Collider collision)
+    {
+        if (collision.TryGetComponent<WayPoint>(out var _))
+            _isOnRoad = true;
+    }
+
+    private void OnTriggerExit(Collider collision)
+    {
+        if (collision.TryGetComponent<WayPoint>(out var _))
+            _isOnRoad = false;
+    }
+
 }

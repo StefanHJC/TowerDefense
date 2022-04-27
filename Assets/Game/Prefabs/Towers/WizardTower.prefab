@@ -499,6 +499,7 @@ GameObject:
   - component: {fileID: 4992723108888025989}
   - component: {fileID: 9125868849478375410}
   - component: {fileID: -985106102017038360}
+  - component: {fileID: 2065021676134881876}
   m_Layer: 0
   m_Name: WizardTower
   m_TagString: Untagged
@@ -572,6 +573,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Stats: {fileID: 11400000, guid: 885878692d3ef77439e6c7bd6cdf8eb1, type: 2}
+  _buildingPlacer: {fileID: 0}
   ShootPoint: {fileID: 4161222010479230868}
 --- !u!114 &-985106102017038360
 MonoBehaviour:
@@ -586,6 +588,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buildingPrice: 100
+--- !u!136 &2065021676134881876
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187918}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5917887
+  m_Height: 1.9844894
+  m_Direction: 1
+  m_Center: {x: -0.015615368, y: 0.49224398, z: -0.035417605}
 --- !u!1 &1396047196106669643
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Obstacle : Building
+public class Obstacle : MonoBehaviour
 {
     [SerializeField] private int _health;
 
@@ -24,7 +24,7 @@ public class Obstacle : Building
             Destroyed?.Invoke();
         }
     }
-    
+
     private void Start()
     {
         _currentHealth = _health;

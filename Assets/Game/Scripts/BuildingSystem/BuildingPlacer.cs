@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(TerrainCollider))]
 public class BuildingPlacer : MonoBehaviour
 {
     [SerializeField] private List<NoneBuildingArea> _noneBuildingAreas;
     [SerializeField] private Camera _mainCamera;
-    [SerializeField] private float _allowedDistanceToStructures;
     [SerializeField] private Player _player;
+    [SerializeField] private float _allowedDistanceToStructures;
 
     private Building _awaitingPlacement;
     private PlayerInput _playerInput;
@@ -15,6 +16,8 @@ public class BuildingPlacer : MonoBehaviour
     private ShootRangeRenderer _shootRangeRenderer;
     private bool _canBePlaced;
     private bool _isTower;
+
+    public event UnityAction<Building> BuildingPlaced;
 
     public void StartPlacing(Building prefab)
     {
@@ -120,11 +123,9 @@ public class BuildingPlacer : MonoBehaviour
         if (_shootRangeRenderer != null)
             _shootRangeRenderer.Disable();
 
+        BuildingPlaced?.Invoke(_awaitingPlacement);
 
-
-        _player.ReduceGold(_awaitingPlacement.Price);
         _awaitingPlacement.ResetColor();
-        _awaitingPlacement.Init();
         Buildings.List.Add(_awaitingPlacement);
         _awaitingPlacement = null;
     }
