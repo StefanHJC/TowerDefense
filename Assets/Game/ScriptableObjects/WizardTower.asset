@@ -16,4 +16,4 @@ MonoBehaviour:
   BuildingPrice: 1
   _shootRange: 4
   _delayBetweenShoots: 1
-  _shellPrefab: {fileID: 9150891377420789296, guid: 4438ce9f9f654cc479cc62472f2cca07, type: 3}
+  _shellPrefab: {fileID: -8244394236487634983, guid: a3b2e84733fc6eb4b9a2cf56584c39cf, type: 3}

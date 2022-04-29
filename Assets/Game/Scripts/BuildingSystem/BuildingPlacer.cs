@@ -119,7 +119,6 @@ public class BuildingPlacer : MonoBehaviour
             Debug.Log("Not enough gold");
             return;
         }
-
         if (_shootRangeRenderer != null)
             _shootRangeRenderer.Disable();
 
